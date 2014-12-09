@@ -176,12 +176,15 @@ finalising = (robot, msg) ->
 
       robot.brain.set('previous', lobby)
 
-      lobby = newLobby(msg.random(popular_maps), user, msg.random(serverList[0..2]))
-      robot.brain.set('lobby', lobby)
-
       msg.send("be a darling and click the link: steam://connect/#{server.host}:#{server.port}/#{server.password}")
       msg.send("no guarantee can be made that your place will still be available if you're late.")
-      return msg.send("also, if you're late often, a suitable punishment will be awarded.")
+      msg.send("also, if you're late often, a suitable punishment will be awarded.")
+      
+      msg.send("#{msg.random(responses.affirmative)} automatically starting a new pickup...")
+      lobby = newLobby(msg.random(popular_maps), 'tfbot', msg.random(serverList[0..2]))
+      robot.brain.set('lobby', lobby)
+      
+      return  msg.send("|| #{created.server} | #{created.map} | 0/12 | [  ] ||")
 
     lobby.finalising = false
     robot.brain.set('lobby', lobby)
